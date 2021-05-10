@@ -103,85 +103,6 @@ rvn_substrRight <- function(x, n)
   substr(x, nchar(x)-n+1, nchar(x))
 }
 
-
-#' @title Add Transparency to Colours
-#'
-#' @description
-#' rvn_col_transparent is used to adjust colour codes to introduce transparency
-#'
-#' @details
-#' Note that this function is not required for ggplot objects, as transparency can be
-#' added with the `alpha` parameter.
-#'
-#' @param colour time series containing columns you wish to reseasonalize. xts
-#' object
-#' @param trans integer describing the degree of transparency, from ~200
-#' (slightly transparent) to <10 (very transparent)
-#' @return \item{res}{returned updated colour code with transparency}
-#'
-#' @seealso See original code on post in Stack Overflow
-#' \href{http://stackoverflow.com/questions/12995683/any-way-to-make-plot-points-in-scatterplot-more-transparent-in-rmaking}{
-#' plot points transparent in R}
-#' @seealso \code{\link{rvn_iscolour}} for checking validity of colour codes
-#' @examples
-#'
-#' # plot randomly distributed data
-#' plot(rnorm(20),col='black')
-#'
-#' # create a transparent blue colour for plotting
-#' mycol <- rvn_col_transparent('red',100)
-#'
-#' # plot more random points in transparent red colour
-#' points(rnorm(20),col=mycol)
-#'
-#' @export rvn_col_transparent
-#' @importFrom grDevices col2rgb
-rvn_col_transparent <- function(colour,trans)
-{
-  if (length(colour)!=length(trans)&!any(c(length(colour),length(trans))==1)) stop("Vector lengths not correct")
-  if (length(colour)==1 & length(trans)>1) colour <- rep(colour,length(trans))
-  if (length(trans)==1 & length(colour)>1) trans <- rep(trans,length(colour))
-
-  num2hex <- function(x)
-  {
-    hex <- unlist(strsplit("0123456789ABCDEF",split=""))
-    return(paste(hex[(x-x%%16)/16+1],hex[x%%16+1],sep=""))
-  }
-  rgb <- rbind(col2rgb(colour),trans)
-  res <- paste("#",apply(apply(rgb,2,num2hex),2,paste,collapse=""),sep="")
-  return(res)
-}
-
-
-#' @title Check Validity of Colour Representation
-#'
-#' @description
-#' rvn_iscolour checks whether a string or string vector contains valid colour representations
-#' (in text or hexadecimal form). Useful in error checking colour arguments for functions.
-#'
-#' @param x string or string vector of colour representations to test
-#' @return \item{y}{vector of TRUE or FALSE indicating whether the colour is valid}
-#'
-#' @seealso See original code on post in Stack Overflow
-#' \href{https://stackoverflow.com/questions/13289009/check-if-character-string-is-a-valid-color-representation?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa}{
-#' Check if character string is a valid color representation}
-#' @seealso \code{\link{rvn_col_transparent}} for creating transparent colour codes
-#' @examples
-#'
-#' rvn_iscolour(c(NA, "black", "blackk", "1", "#00", "#000000"))
-#' #   <NA>   black  blackk       1     #00 #000000
-#' #   TRUE    TRUE   FALSE    TRUE   FALSE    TRUE
-#'
-#' @export rvn_iscolour
-rvn_iscolour <- function(x)
-{
-  sapply(x, function(X) {
-    tryCatch(is.matrix(col2rgb(X)),
-             error = function(e) FALSE)
-  })
-}
-
-
 #' @title Months in the Year vector
 #'
 #' @description
@@ -545,3 +466,54 @@ rvn_stringpad <- function(string, width, just='r')
     return(paste0(string, strrep(' ', padlength)))
   }
 }
+
+#' @title \%notin\% operator
+#'
+#' @description
+#' Syntax for the opposite of \%in\%
+#'
+#' @param x values to be matched
+#' @param table the values to be matched against
+#'
+#' @examples
+#' seq(1,5,1) %notin% seq(3,7,1)
+#'
+#' @export
+"%notin%" <- function(x, table) match(x, table, nomatch = 0) == 0
+
+
+#' @title Fortify xts object to specific format
+#'
+#' @description
+#' Applies the fortify function to an xts object and updates the Index character
+#' column to a date column called 'Date'.
+#'
+#' @details
+#' This function is useful in preparing data to plotting or other tidy-style analysis.
+#' This function is used internally in many RavenR plotting functions.
+#'
+#' @param x xts formatted object to fortify to tibble
+#'
+#' @return tibble format of the xts data
+#'
+#' @examples
+#' ff <- system.file("extdata","run1_Hydrographs.csv", package="RavenR")
+#' hyd <- rvn_hyd_read(ff)$hyd
+#' hyd_fortified <- rvn_fortify_xts(hyd)
+#' head(hyd_fortified)
+#'
+#' @export rvn_fortify_xts
+#' @importFrom ggplot2 fortify
+rvn_fortify_xts <- function(x)
+{
+  if ("xts" %notin% class(x)) {
+    stop("x must be of class xts.")
+  }
+
+  y <- fortify(x)
+  colnames(y) <- c("Date",colnames(y)[-1])
+  y$Date <- as.Date(y$Date)
+  return(y)
+}
+
+

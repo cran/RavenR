@@ -104,14 +104,18 @@ Note: Data quality is not assessed in this package, such as consistency between
 minimum and maximum temperatures. Subdaily data is not currenty supported.
 
 Note: this function is designated to use data from the weathercan package. The
-weathercan package is external to RavenR and is not an explicit dependent package
+weathercan package is external to RavenR and is not an explicit dependency
 of RavenR.
 }
 \examples{
-# Download data using weathercan weather_dl
-library(weathercan)
-kam <- weather_dl(station_ids = 51423,
-                  start = "2016-10-01", end = "2019-09-30", interval="day")
+
+# note: example modified to avoid using weathercan directly, uses saved
+## weathercan data from RavenR package sample data
+# library(weathercan)
+# kam <- weather_dl(station_ids = 51423,
+#                   start = "2016-10-01", end = "2019-09-30", interval="day")
+data(rvn_weathercan_sample)
+kam <- rvn_weathercan_sample
 
 # basic use, override filename to temporary file
 # default forcing_set (PRECIP, MAX TEMP, MIN TEMP)
@@ -127,7 +131,6 @@ rvn_rvt_ECmet(metdata = kam, forcing_set = 2,
 \seealso{
 \code{\link{rvn_rvt_wsc}} to convert WSC flow gauge data to Raven format
 
-Download EC climate data from
-\href{https://climate.weather.gc.ca/historical_data/search_historic_data_e.html}{EC
-Historical Data}
+Download Environment Canada Historical weather data from (climate.weather.gc.ca), or use the
+`weathercan` package to access this data through R.
 }

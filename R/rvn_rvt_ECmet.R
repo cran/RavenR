@@ -62,9 +62,8 @@
 #' minimum and maximum temperatures. Subdaily data is not currenty supported.
 #'
 #' Note: this function is designated to use data from the weathercan package. The
-#' weathercan package is external to RavenR and is not an explicit dependent package
+#' weathercan package is external to RavenR and is not an explicit dependency
 #' of RavenR.
-#'
 #'
 #' @param metdata EC meteorological data from one or more stations (e.g., from weathercan::weather_dl())
 #' @param filename specified name of file to write to (optional)
@@ -81,15 +80,18 @@
 #'
 #' @seealso \code{\link{rvn_rvt_wsc}} to convert WSC flow gauge data to Raven format
 #'
-#' Download EC climate data from
-#' \href{https://climate.weather.gc.ca/historical_data/search_historic_data_e.html}{EC
-#' Historical Data}
+#' Download Environment Canada Historical weather data from (climate.weather.gc.ca), or use the
+#' `weathercan` package to access this data through R.
 #'
 #' @examples
-#' # Download data using weathercan weather_dl
-#' library(weathercan)
-#' kam <- weather_dl(station_ids = 51423,
-#'                   start = "2016-10-01", end = "2019-09-30", interval="day")
+#'
+#' # note: example modified to avoid using weathercan directly, uses saved
+#' ## weathercan data from RavenR package sample data
+#' # library(weathercan)
+#' # kam <- weather_dl(station_ids = 51423,
+#' #                   start = "2016-10-01", end = "2019-09-30", interval="day")
+#' data(rvn_weathercan_sample)
+#' kam <- rvn_weathercan_sample
 #'
 #' # basic use, override filename to temporary file
 #' # default forcing_set (PRECIP, MAX TEMP, MIN TEMP)
@@ -184,7 +186,7 @@ rvn_rvt_ECmet <-  function(metdata, filename=NULL, prd = NULL, stnName = NULL, f
       # verify snow measurements exist
       if("total_snow" %in% colnames(metdata)){
       rr.ts <-  xts(x=rr[,c("total_rain","total_snow","max_temp","min_temp")], order.by = dd)
-      rr.ts$total_snow <-  rr.ts$total_snow*10 # conversion from cm to mm (Raven convention)
+      #rr.ts$total_snow <-  rr.ts$total_snow*10 # conversion from cm to mm (Raven convention) # Incompatible with data density assumption
       } else {
         stop(paste0("Station does not have snowfall observations on record.\nLook for 'total_snow' as a parameter in the inputs. (Station id: ", sid,")"))
       }

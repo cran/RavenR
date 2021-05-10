@@ -21,4 +21,6 @@
 #'
 #' @seealso \code{\link{rvn_rvt_tidyhydat}} for writing rvt files from tidyhydat data
 #'
+#' @source Water Survey of Canada (wateroffice.ec.gc.ca) via `tidyhydat` package
+#'
 "rvn_tidyhydat_sample"

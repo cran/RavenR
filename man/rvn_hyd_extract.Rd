@@ -4,7 +4,7 @@
 \alias{rvn_hyd_extract}
 \title{Extract function for Raven Hydrograph object}
 \usage{
-rvn_hyd_extract(subs = NA, hyd = NA, prd = NULL)
+rvn_hyd_extract(subs = NA, hyd = NA, prd = NULL, rename_cols = TRUE)
 }
 \arguments{
 \item{subs}{column name for plotting/extracting}
@@ -12,12 +12,16 @@ rvn_hyd_extract(subs = NA, hyd = NA, prd = NULL)
 \item{hyd}{full hydrograph data frame (including units) produced by hyd.read}
 
 \item{prd}{time period for plotting, as string. See details}
+
+\item{rename_cols}{boolean for whether to rename columns to generic terms (sim, obs, etc.) or leave
+column names as they appear in hyd}
 }
 \value{
-returns a list with sim, obs, and inflow time series
+returns an xts object with sim, obs, inflow, and obs_inflow time series (if available)
  \item{sim}{model simulation for specified column and period}
  \item{obs}{observed data for specified column and period}
  \item{inflow}{inflow simulation for specified column and period}
+ \item{obs_inflow}{observed inflow simulation for specified column and period}
 }
 \description{
 rvn_hyd_extract is used for extracting data from the Raven hydrograph object.

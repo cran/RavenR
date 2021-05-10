@@ -1,8 +1,8 @@
 Package: RavenR
 Type: Package
 Title: Raven Hydrological Modelling Framework R Support and Analysis
-Version: 2.0.1
-Date: 2020-11-08
+Version: 2.0.9
+Date: 2021-05-05
 Authors@R: c(
     person("Robert", "Chlumsky", email = "rchlumsk@uwaterloo.ca", role = c("cre","aut")),
     person("James", "Craig", email = "jrcraig@uwaterloo.ca", role = "ctb"),
@@ -15,17 +15,17 @@ Note: Package is in active development; please report errors and
         suggestions to rchlumsk@uwaterloo.ca.
 Depends: R (>= 4.0.0)
 Imports: colorspace, cowplot, deldir, dplyr, dygraphs, gdata, ggplot2,
-        grDevices, graphics, igraph, lubridate, magrittr, methods,
-        ncdf4, purrr, reshape2, rgdal, rgeos, scales, sf, sp, stats,
-        utils, xts, zoo
-Suggests: devtools, magick, knitr, weathercan, tidyhydat
+        lifecycle, igraph, lubridate, magrittr, ncdf4, purrr, raster,
+        reshape2, rgdal, rgeos, scales, sf, sp, stats, tidyr, utils,
+        xts, zoo
+Suggests: devtools, magick, knitr, rmarkdown, weathercan, tidyhydat
 URL: https://github.com/rchlumsk/RavenR
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.1.1
 NeedsCompilation: no
-Packaged: 2020-11-13 22:53:53 UTC; rchlumsk
+Packaged: 2021-05-05 15:33:41 UTC; rchlumsk
 Author: Robert Chlumsky [cre, aut],
   James Craig [ctb],
   Genevieve Brown [ctb],
@@ -34,4 +34,4 @@ Author: Robert Chlumsky [cre, aut],
   Simon Lin [ctb]
 Maintainer: Robert Chlumsky <rchlumsk@uwaterloo.ca>
 Repository: CRAN
-Date/Publication: 2020-11-19 08:50:05 UTC
+Date/Publication: 2021-05-10 13:52:23 UTC
