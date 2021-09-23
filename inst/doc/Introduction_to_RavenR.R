@@ -101,11 +101,17 @@ xts::apply.yearly(myhyd$hyd$Sub36, mean, na.rm=TRUE)
 # apply mean as FUN to daily average temperature
 RavenR::rvn_apply_wyearly(myhyd$hyd$Sub36, mean, na.rm=TRUE)
 
-## ----rvi connection plot example----------------------------------------------
-rvi <- rvn_rvi_read(system.file("extdata","Nith.rvi", package="RavenR"))
+## -----------------------------------------------------------------------------
+rvi <- rvn_rvi_read(system.file("extdata","Nith.rvi",package="RavenR"))
 
 rvn_rvi_connections(rvi) %>% 
-rvn_rvi_process_plot(., pdfout = NULL)
+  rvn_rvi_process_ggplot()
+
+## ----rvp getparams example----------------------------------------------------
+system.file("extdata","Nith.rvi", package="RavenR") %>%
+  rvn_rvi_read() %>% 
+  rvn_rvi_getparams() %>% 
+  head() # preview of parameter data frame
 
 ## ----Read rvh file------------------------------------------------------------
 # read in rvh file
@@ -138,6 +144,9 @@ rvn_subbasin_network_plot(rvh$SBtable, labeled=TRUE)
 #  # Create RVT files
 #  rvn_rvt_tidyhydat(hd, subIDs=c(3,11),
 #    filename=c(tf1,tf2))
+#  
+#  # preview first 6 lines of rvt file 1
+#  readLines(tf1) %>% head()
 
 ## ----write rvt file for meteorological data, message=FALSE, warning=FALSE-----
 ## Obtain data using the weathercan package
@@ -149,10 +158,19 @@ rvn_subbasin_network_plot(rvh$SBtable, labeled=TRUE)
 data(rvn_weathercan_sample)
 kam <- rvn_weathercan_sample
 
-## basic use, override filename to temporary file
-## default forcing_set (PRECIP, MAX TEMP, MIN TEMP)
-result <- rvn_rvt_ECmet(metdata = kam, forcing_set = 1,
-                        write_stndata = TRUE)
+fpath1 <- file.path(tempdir(), "met_data.rvt")
+fpath2 <- file.path(tempdir(), "met_gauges.rvt")
+
+## basic use, provide temporary file names for writing
+## filter for particular columns to write to file
+result <- kam[,c("station_name","date","lat","lon","elev","max_temp","min_temp","total_precip")] %>% 
+            rvn_rvt_write_met(metdata = ., 
+                        filenames=fpath1,
+                        filename_stndata = fpath2)
+
+# preview files
+readLines(fpath1) %>% head() # data rvt file
+readLines(fpath2) %>% head() # gauge data file
 
 ## ----Workflow script, eval=FALSE----------------------------------------------
 #  modelfolder <- "C:/TEMP/Nith/"  # model folder with Raven.exe and Nith model files
@@ -220,5 +238,5 @@ result <- rvn_rvt_ECmet(metdata = kam, forcing_set = 1,
 #                         interval="day")
 #  
 #  # write Raven rvt file
-#  rvn_rvt_ECmet(met_data)
+#  rvn_rvt_write_met(met_data)
 
