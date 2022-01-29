@@ -14,6 +14,18 @@
 #' The \code{ravenexe} must point to the Raven.exe file; if not supplied it will look for it in the RavenR/extdata
 #' path that is saved to when using \code{\link{rvn_download}}.
 #'
+#' \code{rvi_options} can include a vector of any additional commands to add to the rvi file prior to execution. Any
+#' commands are added temporarily, and the rvi file is restored following the Raven run. The original rvi file
+#' is backed up as a copy in case of an interruption of the function or other error to prevent loss of data.
+#' The rvi commands provided are checked against a list of known rvi commands and a warning is issued
+#' if an unrecognized command is provided, but all commands provided are nonetheless written to the temporary
+#' rvi file as provided. All rvi commands should include the colon prefix to the command (e.g. ":SilentMode" not "SilentMode"),
+#'  as this is not added automatically.
+#'
+#' Note that this function may not work in all servers, as some more specific setups when invoking the \code{system}
+#' command may be required. In addition, errors may occur if the Raven.exe file does not have permission to execute. This
+#' can be rectified with the \code{run_chmod} parameter set to \code{TRUE}
+#'
 #' @param fileprefix file prefix for main Raven input files.
 #' @param indir string path for Raven input files
 #' @param ravenexe file path to Raven executable
@@ -23,6 +35,8 @@
 #' @param rvp file path to specific rvp file (optional)
 #' @param rvh file path to specific rvh file (optional)
 #' @param showoutput boolean whether to show output in console (passed to show.output.on.console within system) (default FALSE)
+#' @param rvi_options string vector of additional options to add to rvi file temporarily for run
+#' @param run_chmod runs a chmod system call to the provided executable ('chmod +x') (default \code{FALSE})
 #'
 #' @return Returns output code from the system command when running Raven
 #'
@@ -40,16 +54,25 @@
 #' unzip(zipfile=destfile,exdir=destdir)
 #' file.remove(destfile)
 #'
+#' ## check that Raven.exe is downloaded
+#' if (!rvn_download(check=TRUE)) {rvn_download()}
+#'
 #' # Irondeqoiut example
 #' rvn_run(indir=paste(destdir,"/Irond",sep=""),
 #'         showoutput=TRUE)
+#'
+#' # run in Silent Mode (rvi option)
+#' rvn_run(indir=paste(destdir,"/Irond",sep=""),
+#'         showoutput=TRUE,
+#'         rvi_options=c(":SilentMode"))
 #' }
 #'
 #' @export rvn_run
 rvn_run <- function(fileprefix=NULL, indir=getwd(), ravenexe=NULL,
                   outdir=NULL,
                   rvc=NULL, rvt=NULL, rvp=NULL, rvh=NULL,
-                  showoutput=FALSE) {
+                  showoutput=FALSE, rvi_options=NULL,
+                  run_chmod=FALSE) {
 
    if (is.null(fileprefix)) {
       fileprefix<-gsub(".rvi","",list.files(indir,pattern=".rvi"))
@@ -65,6 +88,11 @@ rvn_run <- function(fileprefix=NULL, indir=getwd(), ravenexe=NULL,
       }
    }
 
+   if (run_chmod) {
+      # run chmod to add execution permissions to ravenexe
+      system(paste("chmod +x",ravenexe))
+   }
+
    if (!dir.exists(indir)) {
       stop(sprintf("indir path of %s does not exist",indir))
    }
@@ -72,6 +100,17 @@ rvn_run <- function(fileprefix=NULL, indir=getwd(), ravenexe=NULL,
    if (!file.exists(file.path(indir,paste0(fileprefix,".rvi")))) {
       stop(sprintf("rvi file not found: %s",file.path(indir,paste0(fileprefix,".rvi")) ))
    }
+
+   # # shell/system functions are vulnerable to paths with many characters or spaces
+   # # here these paths are shortened: inputdir/ravenexe
+   # if(Sys.info()["sysname"]=="Windows")
+   # {
+   #   ravenexe <- shortPathName(ravenexe)
+   #   indir <- shortPathName(indir)
+   # }
+
+   # note: need to use different cross-platform function for sanitizing file paths
+   # seems to work with spaces in paths as is, likely handled in system call
 
    # build up RavenCMD
    RavenCMD <- sprintf("%s %s",
@@ -101,6 +140,45 @@ rvn_run <- function(fileprefix=NULL, indir=getwd(), ravenexe=NULL,
       RavenCMD <- sprintf("%s -h %s", RavenCMD, rvh)
    }
 
-   res <- invisible(system(RavenCMD, show.output.on.console = showoutput))
+   ## check rvi options and store rvi / update rvi if valid options exist
+   if (!is.null(rvi_options)) {
+
+      # check options against known ones
+      known_rvi_options <- get_rvi_options()
+
+      if (any(rvi_options %notin% known_rvi_options)) {
+         warning(sprintf("rvn_run: Some provided rvi options not recognized, and may result in warnings/errors in the Raven call:\n%s",
+                         paste0(rvi_options[which(rvi_options %notin% known_rvi_options)],collapse="\n")  ))
+      }
+
+      # read in and backup rvi file
+      rvi <- readLines(file.path(indir,paste0(fileprefix,".rvi")))
+      backup_rvi_path <- paste0(file.path(indir,paste0(fileprefix,".rvi")),"__backup.rvi")
+      writeLines(rvi, con=backup_rvi_path)
+
+      # write options to rvi file
+      writeLines(text=append(rvi, values=c(rvi_options, "")), con=file.path(indir,paste0(fileprefix,".rvi")))
+   }
+
+   if(Sys.info()["sysname"]=="Windows") {
+     res <- invisible(system(RavenCMD, show.output.on.console = showoutput))
+   } else {
+     res <- system(RavenCMD)
+   }
+
+   # clean up rvi file if rvi_options used
+   if (!is.null(rvi_options)) {
+
+      # write back backup rvi
+      writeLines(text=rvi, con=file.path(indir,paste0(fileprefix,".rvi")))
+
+      if (file.exists(backup_rvi_path)) {
+         unlink(backup_rvi_path)
+      } else {
+         warning(sprintf("rvn_run: rvi_options used and backup rvi file created, but cannot be located.\nPlease manually inspect your rvi file for new commands at the end of file:\n%s",
+                         file.path(indir,paste0(fileprefix,".rvi"))  ))
+      }
+   }
+
    return(res)
 }

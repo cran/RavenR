@@ -28,6 +28,14 @@ library(devtools)
 devtools::install_github("rchlumsk/RavenR")
 ```
 
+The developmental version can be installed from the `dev` branch with:
+
+``` r
+if (!require(devtools)) install.packages("devtools")
+library(devtools)
+devtools::install_github("rchlumsk/RavenR", ref="dev")
+```
+
 ## Tutorials and Quick Start Guide
 
 Please see the package vignette for an overview of the `RavenR` package. 
@@ -50,7 +58,7 @@ To cite `RavenR` in publications, use:
 > Robert Chlumsky, James Craig, Leland Scantlebury, Simon
   Lin, Sarah Grass, Genevieve Brown and Rezgar Arabzadeh
   (2021). RavenR: Raven Hydrological Modelling Framework R Support and Analysis. R
-  package version 2.1.3. https://github.com/rchlumsk/RavenR
+  package version 2.1.4. https://github.com/rchlumsk/RavenR
   
 A BibTeX entry for LaTeX users is:
 
@@ -58,7 +66,7 @@ A BibTeX entry for LaTeX users is:
 >      title = {RavenR: Raven Hydrological Modelling Framework R Support and Analysis},  
 >      author = {Robert Chlumsky and James Craig and Leland Scantlebury and Simon Lin and Sarah Grass and Genevieve Brown and Rezgar Arabzadeh},  
 >      year = {2021},  
->      note = {R package version 2.1.3},  
+>      note = {R package version 2.1.4},  
 >      url = {https://github.com/rchlumsk/RavenR},  
 >  }
 
@@ -70,7 +78,7 @@ discussed more openly on the new [Github Discussions page](https://github.com/rc
 
 ## Version Update Notes
 
-### 2.1.3
+### 2.1.4
 
 Updates to a number of functions and new features implemented, including:
 
