@@ -1,4 +1,4 @@
-600399c6a69bd48baac4b86e5680c760 *DESCRIPTION
+2342c6474889a10bfaca05ce6aea6950 *DESCRIPTION
 fc3acc7fdb7f926690a2b5f3c0f7d6b3 *NAMESPACE
 eb7b7cc48edfc6fdd8d3b2f6b526014e *R/RavenR-package.R
 3d2f69e98873c28206a3a2ea00d56e53 *R/RcppExports.R
@@ -58,7 +58,7 @@ a5733107c7f9dc791ac04f0ba238ce9e *R/rvn_rvi_process_diagrammer.R
 d3a00d80f4be0bd653e4292f3e396254 *R/rvn_rvi_process_ggplot.R
 f28ef43ae91ea9794fa93f2c8d65e1eb *R/rvn_rvi_read.R
 b084f9c49a0c58ac3821e167de277fed *R/rvn_rvi_write_template.R
-09e296e282541332da8b193e2ac7232b *R/rvn_rvp_fill_template.R
+e680515e6ceb1c273bdda44eb08b4749 *R/rvn_rvp_fill_template.R
 94c428b7089762bb13e2ae400e5465a6 *R/rvn_rvt_mappings_data.R
 6f597b8e98d98ee0a2ef664773417722 *R/rvn_rvt_read.R
 029c161efee3b8d376a8516ea4fed04e *R/rvn_rvt_tidyhydat.R
@@ -91,12 +91,12 @@ c55f8317ca4676ecac4d38d4757a72f0 *data/rvn_weathercan_metadata_sample.RData
 420859d16fda4e048c46c7897b64294d *data/rvn_weathercan_sample.rda
 50f76836ec2c4c75258df9f4131ef402 *inst/doc/Introduction_to_RavenR.R
 2911c59890c223032076b83a47514754 *inst/doc/Introduction_to_RavenR.Rmd
-be2a024bf85beb91d0b0a329028429e6 *inst/doc/Introduction_to_RavenR.html
+e1bc383a1c216ac9ae72f41759aba584 *inst/doc/Introduction_to_RavenR.html
 9b1c8f9e9b9063cb29d3808ecc91be10 *inst/extdata/GlenAllan.rvt
 17350efe1bedbf0e95fd50c9e1c9c643 *inst/extdata/Nith.rvh
 40493f8f66ca2dda002fd98d64384047 *inst/extdata/Nith.rvi
 ab2be503ccf136a509850daad470b9e9 *inst/extdata/RavenAlgParams.dat
-be96f29311a21e132ea632b65b32f2c1 *inst/extdata/RavenParameters.dat
+26f482cee002a33e4d6368f49a3dbb85 *inst/extdata/RavenParameters.dat
 c7e609e1e96ce7a4f00b28cf82fbfda0 *inst/extdata/RavenProcessConnections.dat
 cd48bbeb4c9278bebd6812bc0f5402c2 *inst/extdata/RavenR_processs_labels.dat
 11f5cbcced53a790b6c3e4a9dbacfcae *inst/extdata/ReservoirStages.csv
@@ -104,7 +104,7 @@ cd48bbeb4c9278bebd6812bc0f5402c2 *inst/extdata/RavenR_processs_labels.dat
 f618abd181ce11c6ceddee3ff9c1f2b0 *inst/extdata/logo/RavenR_logo_small.png
 fe069f121adad099e6857e5e254857d2 *inst/extdata/nithmodel.rvp_temp.rvp
 e09d84fccde6d0e626c8bf5962b2a92b *inst/extdata/processesLabels.dat
-554ec1d96a92bf190fbea0e8ff16585e *inst/extdata/run1_ExhaustiveMassBalance.csv
+2904b36159debdc0c08a35ff4234e6b2 *inst/extdata/run1_ExhaustiveMassBalance.csv
 085e1296af4d03483a35af5d5f9d6ee8 *inst/extdata/run1_ForcingFunctions.csv
 2177ea50714a97b6415b28060f59340c *inst/extdata/run1_Hydrographs.csv
 411f359301ad094bb869c442b381e508 *inst/extdata/run1_PRECIP_Daily_Average_BySubbasin.csv
@@ -180,7 +180,7 @@ f741d11b7cb5802d8191f0caa8c0b1b8 *man/rvn_rvi_connections.Rd
 8882f896e1f9dc827ed42ff35848e0da *man/rvn_rvi_process_ggplot.Rd
 d2622d1ec7717c2e64549d9e4b4da33a *man/rvn_rvi_read.Rd
 eaed3b354c5205fba2d9dd2e854a4b0b *man/rvn_rvi_write_template.Rd
-e84220bf377718b17fdd99e184804dbf *man/rvn_rvp_fill_template.Rd
+f2c315c7af35cf9b7ddeffedb0bea6d1 *man/rvn_rvp_fill_template.Rd
 1cb303b0ab940dc00c5b64a150209f21 *man/rvn_rvt_mappings_data.Rd
 105d2e6aa05aa69993e52012a948c755 *man/rvn_rvt_read.Rd
 e8e652ab1f26ca9aa191802c363c8a34 *man/rvn_rvt_tidyhydat.Rd
