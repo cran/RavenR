@@ -87,7 +87,10 @@ rvn_cum_plot_flow(flow36$sim, obs = flow36$obs)
 rvn_monthly_vbias(flow36$sim, obs = flow36$obs)
 
 ## ----Flow dygraphs, fig.height=5, fig.width=6, eval=FALSE, message=FALSE, warning=FALSE----
-#  rvn_hyd_dygraph(hy, basins="Sub36")
+#  library(htmltools)
+#  
+#  rvn_hyd_dygraph(hy, basins="Sub36") %>%
+#  htmltools::tagList()
 
 ## ----rvn_apply_wyearly function example, message=FALSE, warning=FALSE---------
 myhyd <- system.file("extdata","run1_Hydrographs.csv", package = "RavenR") %>% 
@@ -101,17 +104,18 @@ xts::apply.yearly(myhyd$hyd$Sub36, mean, na.rm = TRUE)
 # apply mean as FUN to daily average temperature
 RavenR::rvn_apply_wyearly(myhyd$hyd$Sub36, mean, na.rm = TRUE)
 
-## -----------------------------------------------------------------------------
+## ----RVI connection plot example----------------------------------------------
 rvi <- rvn_rvi_read(system.file("extdata","Nith.rvi", package = "RavenR"))
 
 rvn_rvi_connections(rvi) %>% 
   rvn_rvi_process_ggplot()
 
-## ----rvp getparams example----------------------------------------------------
-system.file("extdata","Nith.rvi", package = "RavenR") %>%
-  rvn_rvi_read() %>% 
-  rvn_rvi_getparams() %>% 
-  head() # preview of parameter data frame
+## ----RVI write template example-----------------------------------------------
+tf <- file.path(tempdir(), "mymodel.rvi")
+
+rvn_rvi_write_template(template_name="HMETS",
+                       filename=tf,
+                       author="Your Name")
 
 ## ----Read rvh file------------------------------------------------------------
 # read in rvh file
@@ -125,6 +129,26 @@ plot(rvh$SBnetwork)
 
 # create network plot of watershed structure from rvh file
 rvn_rvh_subbasin_network_plot(rvh$SBtable, labeled = TRUE)
+
+## ----Create RVP template file, eval=FALSE-------------------------------------
+#  rvn_run(fileprefix = "mymodel",
+#          rvi_options=":CreateRVPTemplate",
+#          showoutput = TRUE)
+
+## ----Fill a basic rvp file, echo=TRUE-----------------------------------------
+# infill template file with default parameter values
+rvn_rvp_fill_template(
+                      rvi_file = system.file("extdata","Nith.rvi", package = "RavenR"),
+                      rvh_file = system.file("extdata","Nith.rvh", package = "RavenR"),
+                      rvp_template_file = system.file("extdata","nithmodel.rvp_temp.rvp", package = "RavenR"),
+                      avg_annual_runoff = 123,
+                      extra_commands=":RedirectToFile  channel_properties.rvp")
+
+## ----RVP getparams example----------------------------------------------------
+system.file("extdata","Nith.rvi", package = "RavenR") %>%
+  rvn_rvi_read() %>% 
+  rvn_rvi_getparams() %>% 
+  head() # preview of parameter data frame
 
 ## ----Write rvt file for flow observation data, message=FALSE, warning=FALSE, eval=FALSE----
 #  stations <- c("05CB004","05CA002")
@@ -239,4 +263,47 @@ readLines(fpath2) %>% head() # gauge data file
 #  
 #  # write Raven rvt file
 #  rvn_rvt_write_met(met_data)
+
+## ----Exercise 3 solution, eval=FALSE, include=FALSE---------------------------
+#  
+#  # view model template options, and keyword needed to use in function
+#  ?rvn_rvi_write_template
+#  
+#  # from documentation,
+#  ## The template_name parameter should be one of "UBCWM", "HBV-EC", "HBV-Light",
+#  ## "GR4J", "CdnShield", "MOHYSE", "HMETS", "HYPR", or "HYMOD".
+#  
+#  # write a template rvi file, use the HMETS model configuration again
+#  rvn_rvi_write_template(template_name = "HMETS",
+#                         filename = "ravenriver.rvi",
+#                         author = "Robert Chlumsky",
+#                         description = "Template file with HMETS model structure, created for Introduction to RavenR, Exercise 3.")
+#  
+#  # run Raven to create the template file
+#  rvn_run(fileprefix = "ravenriver",
+#          rvi_options=":CreateRVPTemplate",
+#          showoutput = TRUE)
+#  
+#  # create a basic rvh file with 1 subbasin 2 hrus
+#  #########
+#  subdf <- rvn_rvh_blankSBdf(nSubBasins = 1)
+#  subdf$Name <- "sub1"
+#  
+#  hrudf <- rvn_rvh_blankHRUdf(nHRUs = 2, subbasinIDs = c(1))
+#  hrudf$Area <- c(100,25)
+#  hrudf$Elevation <- 500
+#  hrudf$Latitude <-  -114.604170
+#  hrudf$Longitude <- 52.072763
+#  hrudf$LandUse <- "DEFAULT_LANDUSE"
+#  hrudf$Vegetation <- c("FOREST", "URBAN")
+#  hrudf$SoilProfile <- "DEFAULT_SOILPROFILE"
+#  hrudf$Slope <- 0.005
+#  
+#  rvn_rvh_write(filename = "ravenriver.rvh",
+#                SBtable = subdf,
+#                HRUtable = hrudf)
+#  
+#  # infill template file with default parameter values
+#  rvn_rvp_fill_template(fileprefix = "ravenriver",
+#                        avg_annual_runoff = 123)
 
