@@ -1,4 +1,4 @@
-220c57033e725beded12696730009eb9 *DESCRIPTION
+fdf2c9abdfc2ab4ebd1aa3bf48c00559 *DESCRIPTION
 898ddce0eb66921f999eb3d72ed1e413 *NAMESPACE
 eb7b7cc48edfc6fdd8d3b2f6b526014e *R/RavenR-package.R
 3d2f69e98873c28206a3a2ea00d56e53 *R/RcppExports.R
@@ -92,9 +92,9 @@ fb182e62ba2a6c419625c6d98fb6be6c *data/rvn_tidyhydat_sample.RData
 522a4e1bad7e11f0ea4049c50a796129 *data/rvn_watershed_data.RData
 c55f8317ca4676ecac4d38d4757a72f0 *data/rvn_weathercan_metadata_sample.RData
 420859d16fda4e048c46c7897b64294d *data/rvn_weathercan_sample.rda
-a7c582937e3ef450ed3e5415765397b0 *inst/doc/Introduction_to_RavenR.R
-459dedef2458569e9130cd5237ab4214 *inst/doc/Introduction_to_RavenR.Rmd
-af18a7f05c0a9f6f5599f7377d96f49e *inst/doc/Introduction_to_RavenR.html
+aeaacf995f8e5ccbcab66d86ed3ba439 *inst/doc/Introduction_to_RavenR.R
+fa0d90787b8a448f5f336cbc6b4283b9 *inst/doc/Introduction_to_RavenR.Rmd
+81725b41c7474ea270f144664246c254 *inst/doc/Introduction_to_RavenR.html
 9b1c8f9e9b9063cb29d3808ecc91be10 *inst/extdata/GlenAllan.rvt
 17350efe1bedbf0e95fd50c9e1c9c643 *inst/extdata/Nith.rvh
 40493f8f66ca2dda002fd98d64384047 *inst/extdata/Nith.rvi
@@ -215,4 +215,4 @@ c6f243a398692b0b01d7a385da6a3a02 *man/rvn_write_Raven_label.Rd
 bb0261e0946368cae7b42284cbc61d12 *src/RcppExports.cpp
 f16f7427f0ff97a196382363a0f6066f *src/repel_boxes.cpp
 0128d0539ccd91fa030056bbaef98757 *tests/testthat/test_time.series.R
-459dedef2458569e9130cd5237ab4214 *vignettes/Introduction_to_RavenR.Rmd
+fa0d90787b8a448f5f336cbc6b4283b9 *vignettes/Introduction_to_RavenR.Rmd

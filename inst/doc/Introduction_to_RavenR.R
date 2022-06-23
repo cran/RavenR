@@ -136,13 +136,17 @@ rvn_rvh_subbasin_network_plot(rvh$SBtable, labeled = TRUE)
 #          showoutput = TRUE)
 
 ## ----Fill a basic rvp file, echo=TRUE-----------------------------------------
+# temporary file path
+tf <- tempfile()
+
 # infill template file with default parameter values
 rvn_rvp_fill_template(
                       rvi_file = system.file("extdata","Nith.rvi", package = "RavenR"),
                       rvh_file = system.file("extdata","Nith.rvh", package = "RavenR"),
                       rvp_template_file = system.file("extdata","nithmodel.rvp_temp.rvp", package = "RavenR"),
                       avg_annual_runoff = 123,
-                      extra_commands=":RedirectToFile  channel_properties.rvp")
+                      extra_commands=":RedirectToFile  channel_properties.rvp",
+                      rvp_out = tf)
 
 ## ----RVP getparams example----------------------------------------------------
 system.file("extdata","Nith.rvi", package = "RavenR") %>%
