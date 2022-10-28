@@ -1,4 +1,4 @@
-fdf2c9abdfc2ab4ebd1aa3bf48c00559 *DESCRIPTION
+a93249e1b518aaac4e837cc360c1c1a0 *DESCRIPTION
 898ddce0eb66921f999eb3d72ed1e413 *NAMESPACE
 eb7b7cc48edfc6fdd8d3b2f6b526014e *R/RavenR-package.R
 3d2f69e98873c28206a3a2ea00d56e53 *R/RcppExports.R
@@ -44,8 +44,8 @@ b4f4c715a540ddb201e78ce57ded6ea5 *R/rvn_res_plot.R
 20702b38655e2702ff2e8d399b586c9a *R/rvn_rvc_from_custom_output.R
 b4efefc4a3d2b3f6a364597ef2688b00 *R/rvn_rvc_res.R
 1defc0bf1f9bf2f8715b69646db235a5 *R/rvn_rvc_write.R
-d6fc36df3a6403d68075f2290449f3fe *R/rvn_rvh_blankHRUdf.R
-25582907edd1162e912321aefe8b987b *R/rvn_rvh_blankSBdf.R
+3367f44b53d8d7c6b3e8cd4c26b7bc19 *R/rvn_rvh_blankHRUdf.R
+8f163b51b8edc3c364dd152a1fa484ac *R/rvn_rvh_blankSBdf.R
 070622bf4de594ab6cd6448b20a306ba *R/rvn_rvh_cleanHRUs.R
 5545e457cad78f0da5919ce5e6711a08 *R/rvn_rvh_overwrite.R
 dfb95eba244ef3c7da9280ce70206780 *R/rvn_rvh_query.R
@@ -70,7 +70,7 @@ f47fab7debc8efa661afce036e5f6fb5 *R/rvn_rvt_write_met.R
 dccc0d927973d5df4cef9c8fb87291af *R/rvn_theme_RavenR.R
 442e70e77524e8c1f58225ab7b969a23 *R/rvn_tidyhydat_sample.R
 aebdc4642ab7772f0f0864ad47276c14 *R/rvn_ts_infill.R
-eb32f9eba4719aa44761bf1766f35462 *R/rvn_utilities.R
+add4ecc17c2b4f7f07ed8808d621719f *R/rvn_utilities.R
 babd502f17fe1b65212adf10e0e47bb1 *R/rvn_watershed_data.R
 f08da3d8e823843bb07e402bd34431f5 *R/rvn_watershed_read.R
 ff532d9677e04fd9ec4a6f55b3c59aa6 *R/rvn_watershedmeb_read.R
@@ -94,13 +94,13 @@ c55f8317ca4676ecac4d38d4757a72f0 *data/rvn_weathercan_metadata_sample.RData
 420859d16fda4e048c46c7897b64294d *data/rvn_weathercan_sample.rda
 aeaacf995f8e5ccbcab66d86ed3ba439 *inst/doc/Introduction_to_RavenR.R
 fa0d90787b8a448f5f336cbc6b4283b9 *inst/doc/Introduction_to_RavenR.Rmd
-81725b41c7474ea270f144664246c254 *inst/doc/Introduction_to_RavenR.html
+fde879098b4b41867d5c4ad3e87edbb5 *inst/doc/Introduction_to_RavenR.html
 9b1c8f9e9b9063cb29d3808ecc91be10 *inst/extdata/GlenAllan.rvt
 17350efe1bedbf0e95fd50c9e1c9c643 *inst/extdata/Nith.rvh
 40493f8f66ca2dda002fd98d64384047 *inst/extdata/Nith.rvi
-ab2be503ccf136a509850daad470b9e9 *inst/extdata/RavenAlgParams.dat
-26f482cee002a33e4d6368f49a3dbb85 *inst/extdata/RavenParameters.dat
-c7e609e1e96ce7a4f00b28cf82fbfda0 *inst/extdata/RavenProcessConnections.dat
+a873002262aff2441d2e63f5d42cc585 *inst/extdata/RavenAlgParams.dat
+2b45edf2dacb0b8968a100c1abdd0d95 *inst/extdata/RavenParameters.dat
+efb784c1f6f8246c7be84f1d5d8fab06 *inst/extdata/RavenProcessConnections.dat
 cd48bbeb4c9278bebd6812bc0f5402c2 *inst/extdata/RavenR_processs_labels.dat
 11f5cbcced53a790b6c3e4a9dbacfcae *inst/extdata/ReservoirStages.csv
 7ad5e6785b6cee98454e52263a1a156f *inst/extdata/logo/RavenR_logo.png
@@ -171,7 +171,7 @@ a651b92250108e40006479b8d4d125e1 *man/rvn_res_dygraph.Rd
 8a3c2506beefc2a0afa99469b281b044 *man/rvn_rvc_res.Rd
 71fff998b8a9b11810b4d9d82af8ff4c *man/rvn_rvc_write.Rd
 98732c0b35ed6ef8e53dc1c324ba78d8 *man/rvn_rvh_blankHRUdf.Rd
-80a5dea61adb7a0eeb8b05525558f71e *man/rvn_rvh_blankSBdf.Rd
+00664765ef8346730afb86f3c6bcf3a6 *man/rvn_rvh_blankSBdf.Rd
 a78945c60ec1ab9db929bcdaadf14604 *man/rvn_rvh_cleanhrus.Rd
 94f9c37ec3558c4ccf328a68896fac58 *man/rvn_rvh_query.Rd
 a36c0ef746cd444a82285d1f258b2aac *man/rvn_rvh_read.Rd
@@ -192,7 +192,7 @@ c27cecd9d51fc8350523d6ba8cfe8089 *man/rvn_rvi_write_template.Rd
 e8e652ab1f26ca9aa191802c363c8a34 *man/rvn_rvt_tidyhydat.Rd
 8a1918548a0216b4e93ab4dd8da63e60 *man/rvn_rvt_write.Rd
 9b3abcc547918da9783c859b92e7460d *man/rvn_rvt_write_met.Rd
-e923808840c16bd520f8bb4c4a3e7ed4 *man/rvn_stringpad.Rd
+fd00f5cd29998c9b949d7860ecca1297 *man/rvn_stringpad.Rd
 d2cdcdb54cc4b594d2516d9dd5a93ef6 *man/rvn_substrLeft.Rd
 59fce8a301976634d19a027509ed20bc *man/rvn_substrMLeft.Rd
 8d37fa3d835c95bc661db725dabae63d *man/rvn_substrMRight.Rd
