@@ -10,7 +10,7 @@ status](https://www.r-pkg.org/badges/version/RavenR)](https://cran.r-project.org
 
 # RavenR <img src="inst/extdata/logo/RavenR_logo_small.png" align="right" />
 
-`RavenR` is an R package for handling [Raven](http://raven.uwaterloo.ca/) hydrologic modelling framework
+`RavenR` is an R package for handling [Raven](https://raven.uwaterloo.ca/) hydrologic modelling framework
 inputs, outputs, and diagnostics. 
 
 ## Installation
@@ -48,17 +48,36 @@ The `RavenR` vignette can be accessed with the `browseVignettes` function.
 browseVignettes("RavenR")
 ```
 
-## Citation
+## Citation (Publication)
+To cite `RavenR` in publications, please use the publication reference below.
+
+> Chlumsky, R., Craig, J. R., Lin, S. G. M., Grass, S., Scantlebury, L., Brown, G., and Arabzadeh, R.: RavenR v2.1.4: an open-source R package to support flexible hydrologic modelling, Geosci. Model Dev., 15, 7017–7030, https://doi.org/10.5194/gmd-15-7017-2022, 2022.
+  
+A BibTeX entry for LaTeX users is:
+
+>  @Article{gmd-15-7017-2022,  
+>      title = {\texttt{RavenR} v2.1.4: an open-source R package to support flexible hydrologic modelling},  
+>      author = {Chlumsky, R. and Craig, J. R. and Lin, S. G. M. and Grass, S. and Scantlebury, L. and Brown, G. and Arabzadeh, R.},  
+>      journal = {Geoscientific Model Development},  
+>      volume = {15},  
+>      year = {2022},  
+>      number = {18},  
+>      pages = {7017--7030},  
+>      url = {https://gmd.copernicus.org/articles/15/7017/2022/},  
+>      doi = {10.5194/gmd-15-7017-2022}  
+>  }  
+
+## Citation (Software)
 ```{r}
 citation("RavenR")
 ```
 
-To cite `RavenR` in publications, use:
+The `RavenR` software itself can also be cited in publications, use:
 
 > Robert Chlumsky, James Craig, Leland Scantlebury, Simon
   Lin, Sarah Grass, Genevieve Brown and Rezgar Arabzadeh
   (2022). RavenR: Raven Hydrological Modelling Framework R Support and Analysis. R
-  package version 2.1.7. https://github.com/rchlumsk/RavenR
+  package version 2.1.9. https://github.com/rchlumsk/RavenR
   
 A BibTeX entry for LaTeX users is:
 
@@ -66,8 +85,9 @@ A BibTeX entry for LaTeX users is:
 >      title = {RavenR: Raven Hydrological Modelling Framework R Support and Analysis},  
 >      author = {Robert Chlumsky and James Craig and Leland Scantlebury and Simon Lin and Sarah Grass and Genevieve Brown and Rezgar Arabzadeh},  
 >      year = {2022},  
->      note = {R package version 2.1.7},  
+>      note = {R package version 2.1.9},  
 >      url = {https://github.com/rchlumsk/RavenR},  
+>      doi = {10.5281/zenodo.3468441}
 >  }
 
 
@@ -78,11 +98,40 @@ discussed more openly on the new [Github Discussions page](https://github.com/rc
 
 ## Version Update Notes
 
+### 2.2.1
+
+Minor updates and new functionality, including:
+
+  - new function for generic reading of output csv files, `rvn_csv_read`;
+  - new function for writing Ostrich calibration templates, `rvn_rvp_calib_template`;
+  - new function for updating commands in the rvi file, `rvn_rvi_commandupdate`;
+  - update of all http urls to https;
+  - update in rvn_rvt_met_write to move the :RedirectToFile within the gauge block; and
+  - update to master database files for new connections and infilling some parameter ranges;
+
+### 2.2.0
+
+Minor updates and new functionality, including:
+
+  - update to blankHRUdf and blankSBdf functions to make them slightly more intelligent;
+  - update to master database files for HYPR model parameters and connections;
+  - updated package vignette minor deficiency where rvp_out was not writing to a temporary file; and 
+  - minor fixes to `rvn_rvh_query`, `rvn_met_recordplot` documentation.
+
+### 2.1.8
+
+Minor updates and new functionality, including:
+
+  - added new functions including `rvn_rvh_query` and `rvn_rvh_summarize` for working with RVH files;
+  - updated package vignette with sections on building a basic model files and a model workflow for RVI/RVP files, and a third exercise; and 
+  - fix to `rvn_monthly_vbias` to exclude months with missing days;
+
+
 ### 2.1.7
 
 Minor updates and bug fixes, including:
 
-  - added new functions including `rvn_rvp_fill_template` for filling in rvp template files, `rvn_met_recordplot` to show station record lenghts; 
+  - added new functions including `rvn_rvp_fill_template` for filling in rvp template files, `rvn_met_recordplot` to show station record lengths; 
   - added function for plotting subbasin network with interactive `visNetwork` library
   - updated `rvn_run` with additional options, including adding rvi commands to the file before execution;   
   - added new model templates from Raven Manual v3.5 to `rvn_rvi_write_template`; 
@@ -130,4 +179,4 @@ plotting. Some of these include:
 
 * [RavenR.extras](https://github.com/rchlumsk/RavenR.extras): Additional RavenR utilities.
 
-* [Raven Hydrologic Modelling Framework](http://raven.uwaterloo.ca/): Robust and flexible Hydrologic Modelling Framework developd by Dr. James R. Craig at the University of Waterloo.
+* [Raven Hydrologic Modelling Framework](https://raven.uwaterloo.ca/): Robust and flexible Hydrologic Modelling Framework developd by Dr. James R. Craig at the University of Waterloo.

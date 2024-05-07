@@ -99,10 +99,10 @@ myhyd <- system.file("extdata","run1_Hydrographs.csv", package = "RavenR") %>%
 library(xts)
 
 # apply mean to calendar year in hydrograph data
-xts::apply.yearly(myhyd$hyd$Sub36, mean, na.rm = TRUE)
+xts::apply.yearly(myhyd$hyd$Sub36, colMeans, na.rm = TRUE)
 
 # apply mean as FUN to daily average temperature
-RavenR::rvn_apply_wyearly(myhyd$hyd$Sub36, mean, na.rm = TRUE)
+RavenR::rvn_apply_wyearly(myhyd$hyd$Sub36, colMeans, na.rm = TRUE)
 
 ## ----RVI connection plot example----------------------------------------------
 rvi <- rvn_rvi_read(system.file("extdata","Nith.rvi", package = "RavenR"))
@@ -111,7 +111,8 @@ rvn_rvi_connections(rvi) %>%
   rvn_rvi_process_ggplot()
 
 ## ----RVI write template example-----------------------------------------------
-tf <- file.path(tempdir(), "mymodel.rvi")
+td <- tempdir() # temporary directory to write model files to
+tf <- file.path(td,"mymodel.rvi")
 
 rvn_rvi_write_template(template_name="HMETS",
                        filename=tf,
@@ -132,6 +133,8 @@ rvn_rvh_subbasin_network_plot(rvh$SBtable, labeled = TRUE)
 
 ## ----Create RVP template file, eval=FALSE-------------------------------------
 #  rvn_run(fileprefix = "mymodel",
+#          indir=td, # temporary directory created earlier
+#          outdir=td, # write to same temporary directory
 #          rvi_options=":CreateRVPTemplate",
 #          showoutput = TRUE)
 
