@@ -17,10 +17,10 @@ ls("package:RavenR") %>%
 #  ?rvn_flow_scatterplot
 
 ## ----R sample data, message=FALSE, warning=FALSE, results='hide'--------------
-data("rvn_forcing_data")
+data("rvn_hydrograph_data")
 # ?rvn_forcing_data
-plot(rvn_forcing_data$forcings$temp_daily_ave,
-     main="Daily Avg. Temperature")
+plot(rvn_hydrograph_data$hyd$Sub36,
+     main="Subbasin 36 Flows")
 
 ## ----Raw sample data----------------------------------------------------------
 # read in hydrograph sample csv data from RavenR package
@@ -51,7 +51,7 @@ myplots$PET
 ## ----Plot forcing data with labels--------------------------------------------
 library(ggplot2)
 
-myplots <- rvn_forcings_plot(ff_data$forcings)
+myplots <- rvn_forcings_plot(ff_data)
 myplots$Radiation +
   theme(legend.position = "bottom")
 

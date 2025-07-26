@@ -17,8 +17,8 @@
 #' @examples
 #'
 #' # read in sample forcings data
-#' data("rvn_forcing_data")
-#' fdata <- rvn_forcing_data$forcings
+#' ff <- system.file("extdata","run1_ForcingFunctions.csv", package = "RavenR")
+#' fdata <- RavenR::rvn_forcings_read(ff)
 #'
 #' # plot forcings data
 #' p1 <- rvn_forcings_plot(fdata)
@@ -42,7 +42,12 @@
 rvn_forcings_plot <-function(forcings, prd=NULL)
 {
 
-  Index <- value <- variable <- color <- PET <- potential.melt <- NULL
+  Index <- value <- variable <- color <- PET <- potential_melt <- NULL
+
+  if ("list" %in% class(forcings)) {
+    message("passed forcings as list, disaggregating forcings")
+    forcings <- forcings$forcings
+  }
 
   # check prd and subset data
   prd <- rvn_get_prd(forcings,prd)
@@ -93,8 +98,9 @@ rvn_forcings_plot <-function(forcings, prd=NULL)
           axis.title = element_text(size = 7))
 
   #Radiation
-  plot.data$SW_LW <- plot.data$SW.radiation + plot.data$LW.radiation
-  rad.data <- pivot_longer(plot.data[,c("Index","LW.radiation","SW.radiation","ET.radiation","SW_LW")], cols = c("LW.radiation","SW.radiation","ET.radiation","SW_LW"),
+  plot.data$SW_LW <- plot.data$net_SW_radiation + plot.data$net_LW_radiation
+  rad.data <- pivot_longer(plot.data[,c("Index","net_LW_radiation","SW_radiation","ET_radiation","SW_LW")],
+                           cols = c("net_LW_radiation","SW_radiation","ET_radiation","SW_LW"),
                            names_to = "variable",values_to = "value")
 
   p4 <- ggplot(rad.data)+
@@ -108,7 +114,7 @@ rvn_forcings_plot <-function(forcings, prd=NULL)
 
   # Potential melt
   p5 <- ggplot(plot.data)+
-    geom_line(aes(x = Index, y = potential.melt), color = "navy")+
+    geom_line(aes(x = Index, y = potential_melt), color = "navy")+
     ylab('Potential Melt (mm/d)')+
     xlab("")+
     rvn_theme_RavenR()+
